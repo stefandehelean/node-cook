@@ -10,21 +10,19 @@ app.use(express.json());
 app.use(cookieParser())
 // app.use(cors(corsOptions));
 app.use((req, res, next) => {
-  // res.header('Access-Control-Allow-Origin', '*');
-  // res.header(
-  //   'Access-Control-Allow-Methods',
-  //   'POST, GET, PUT, DELETE, OPTIONS'
-  // );
-  // res.header(
-  //   'Access-Control-Allow-Headers',
-  //   'Origin, X-Requested-With, Content-Type, Accept, x-access-token'
-  // );
+  res.header('Access-Control-Allow-Origin', req.header('Origin'));
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
 
   if (req.method === 'OPTIONS') {
-    res.end();
-  } else {
-    next();
+      res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, PATCH');
+      return res.status(200).json({});
   }
+
+  next();
 });
 
 app.post('/graphql', (req, res) => {
