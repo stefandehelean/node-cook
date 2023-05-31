@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 app.post('/graphql', (req, res) => {
   const accToken = req?.cookies?.accToken ?? 'asdasdasdas'; // Read the "accToken" cookie
   console.log(accToken)
+  console.log(req?.cookies)
 
   // Handle the account POST request
   // ...
